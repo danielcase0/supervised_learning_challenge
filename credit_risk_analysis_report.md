@@ -78,6 +78,7 @@ Finally, the third logistic regression model was trained on balanced classes (56
 - debt-to-income ratio (4.47)
 - loan size (1.58)
 - derogatory marks (-1.57)
+
 As one might expect, increases in the debt-to-income ratio of the borrower and the loan size are more likely to indicate that a loan is high-risk.  Counterintuitively, the relationship between derogatory marks and a loan being high-risk is negative, so the model treats derogatory marks as being advantageous (i.e., the more derogatory marks a loan has in the scaled data set, the less likely it is to be high risk).
 
 The best performing models are the second and third ones.  They're essentially the same model with minor variation in how the data is preprocessed.  They perform better than the first model not only because the balanced accuracy is higher, but because they're significantly better at correctly predicting which loans are high-risk.  Obviously, a higher balanced accuracy indicates better performance, but lenders would much rather leave money on the table by mislabeling healthy loans as high-risk (false positives) than lose money by mislabeling high-risk loans as being healthy (false negatives).  Consequently, I recommend using the second or third model, which both provide better performance than the first one.
