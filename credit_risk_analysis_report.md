@@ -21,10 +21,10 @@ The initial data set includes historical data on the following loan information:
   - loan status
 
 The purpose of this analysis is to create a logistic regression model that uses the independent variables to predict the value of the dependent variable.  If the loan status is `0` then the loan is healthy.  If the loan status is `1` then the loan is high-risk.  For the purpose of this analysis, healthy loans are considered "negatives" because of their assignment as `0` and high-risk loans are considered "positives" because of their assignment as `1`.  The possible model results are as follows:
--True negatives (TN): healthy loans that the model predicts are healthy
--False negatives (FN): high-risk loans that the model predicts are healthy
--True positives (TP): high-risk loans that the model predicts are high-risk
--False positives (FP): healthy loans that the model predicts are high-risk
+- True negatives (TN): healthy loans that the model predicts are healthy
+- False negatives (FN): high-risk loans that the model predicts are healthy
+- True positives (TP): high-risk loans that the model predicts are high-risk
+- False positives (FP): healthy loans that the model predicts are high-risk
 
 The analysis is broken up into three parts.  First, a logistic regression model was created using the original data set.  Second, a logistic regression model was created using oversampled data (to create balanced classes) to see if the model performance would improve.  And third, a logisitic regression model was created using both oversampled and scaled data to better understand the relative influence of each of the independent variables on the dependent variable.  The last part wasn't required for the assignment, but I found it instructive.
 
