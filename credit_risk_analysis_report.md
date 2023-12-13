@@ -20,7 +20,11 @@ The initial data set includes historical data on the following loan information:
   Dependent variable:
   - loan status
 
-The purpose of this analysis is to create a logistic regression model that uses the independent variables to predict the value of the dependent variable.  If the loan status is `0` then the loan is healthy.  If the loan status is `1` then the loan is high-risk.
+The purpose of this analysis is to create a logistic regression model that uses the independent variables to predict the value of the dependent variable.  If the loan status is `0` then the loan is healthy.  If the loan status is `1` then the loan is high-risk.  For the purpose of this analysis, healthy loans are considered "negatives" because of their assignment as `0` and high-risk loans are considered "positives" because of their assignment as `1`.  The possible model results are as follows:
+-True negatives (TN): healthy loans that the model predicts are healthy
+-False negatives (FN): high-risk loans that the model predicts are healthy
+-True positives (TP): high-risk loans that the model predicts are high-risk
+-False positives (FP): healthy loans that the model predicts are high-risk
 
 The analysis is broken up into three parts.  First, a logistic regression model was created using the original data set.  Second, a logistic regression model was created using oversampled data (to create balanced classes) to see if the model performance would improve.  And third, a logisitic regression model was created using both oversampled and scaled data to better understand the relative influence of each of the independent variables on the dependent variable.  The last part wasn't required for the assignment, but I found it instructive.
 
@@ -30,9 +34,9 @@ The following performance metrics are used in the analysis:
 - Accuracy: accuracy is the percent of correct predictions for both classes in the dependent variable.
 - Balanced accuracy: balanced accuracy is the percent of correct predictions for both classes in the dependent variable, if the accuracy of each class were given equal weight.
 - Precision: for each class, precision is the ratio of loans correctly identified in that class to the total number of loans identified as that class.
-  - For example, for healthy loans, the precision of the model is the ratio of healthy loans correctly identified as being healthy (true positives) to the total number of loans being identified as healthy (true and false positives).
+  - For example, for healthy loans, the precision of the model is the ratio of healthy loans correctly identified as being healthy (true negatives) to the total number of loans being identified as healthy (true and false negatives).
 - Recall: for each class, recall is the ratio of loans correctly identified in that class to the total number of instances of that class in the data set.
-  - For example, for healthy loans, the recall of the model is the ratio of healthy loans correctly identified as being healthy (true positives) to the total number of healthy loans in the data set (true positives and false negatives).
+  - For example, for healthy loans, the recall of the model is the ratio of healthy loans correctly identified as being healthy (true negatives) to the total number of healthy loans in the data set (true negatives and false positives).
 
 In the second step, a second model is trained using balanced classes to see if the model performance would improve.  Credit risk modeling is a textbook example of a problem involving imbalanced classes, because there are usually many more healthy loans than high-risk ones.  As a result, there are more healthy loans than high-risk loans in the data set, and the model ends up being better at predicting healthy loans because it's ultimately trained on more healthy-loan data if the classes are left imbalanced.  To rectify the imbalance, the smaller class (e.g., high-risk loans) are randomly oversampled until the number of instances in each class is equal.  In the analysis, the purpose of conducting the `value_counts` is to illustrate the imbalanced classes in the original data and the balanced classes in the oversampled data.
 
@@ -68,7 +72,7 @@ Model 3: Logistic Regression model trained on the oversampled (balanced classes)
 
 ## Summary
 
-In a credit risk situation, it is very important to reduce the number of false negatives identified by the model.  In context, false negatives are high-risk loans that the model has labeled as healthy.  High-risk loans have higher default rates, and defaulted loans are very costly to lenders.  Ideally, the credit model would correctly predict all of the loan types, but in practice, it will always mislabel some of the loans, and the lender has a much higher tolerance for false positives (healthy loans labeled as unhealthy) than false negatives (unhealthy loans labeled as healthy).  False positives are an example of the lender potentially leaving money on the table by not funding good customers.  False negatives are an example of the lender potentially losing their principal by lending to high-risk borrowers.  These concepts are critical for evaluating the performance of the model in the context of the exercise.
+In a credit risk situation, it is very important to reduce the number of false negatives identified by the model.  In context, false negatives are high-risk loans that the model has labeled as healthy.  High-risk loans have higher default rates, and defaulted loans are very costly to lenders.  Ideally, the credit model would correctly predict all of the loan types, but in practice, it will always mislabel some of the loans, and the lender has a much higher tolerance for false positives (healthy loans labeled as high-risk) than false negatives (high-risk loans labeled as healthy).  False positives are an example of the lender potentially leaving money on the table by not funding good customers.  False negatives are an example of the lender potentially losing their principal by lending to high-risk borrowers.  These concepts are critical for evaluating the performance of the model in the context of the exercise.
 
 As expected, the first logistic regression model was trained on imbalanced classes (75,036 healthy loans and 2,500 high-risk loans) and the model is much better at predicting which loans are healthy than which loans are high-risk.  Only 0.6% of healthy loans are misidentified (i.e., 99.4% recall for healthy loans), but 9.0% of high-risk loans are misidentified (i.e., 91.0% recall for high-risk loans).  That disparity is reflected in the balanced accuracy score, which is 95.2%, despite the overall accuracy of the model being much higher (99.2%).
 
